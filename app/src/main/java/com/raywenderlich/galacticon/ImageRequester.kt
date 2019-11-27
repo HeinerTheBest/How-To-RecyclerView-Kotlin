@@ -22,8 +22,6 @@
 
 package com.raywenderlich.galacticon
 
-import android.app.Activity
-import android.content.Context
 import android.net.Uri.Builder
 import okhttp3.*
 import org.json.JSONException
@@ -32,7 +30,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ImageRequester(listeningActivity: Activity) {
+class ImageRequester(imageRequesterResponse: ImageRequesterResponse) {
 
   interface ImageRequesterResponse {
     fun receivedNewPhoto(newPhoto: Photo)
@@ -40,17 +38,10 @@ class ImageRequester(listeningActivity: Activity) {
 
   private val calendar: Calendar = Calendar.getInstance()
   private val dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-  private val responseListener: ImageRequesterResponse
-  private val context: Context
-  private val client: OkHttpClient
+  private val responseListener = imageRequesterResponse
+  private val client = OkHttpClient()
   var isLoadingData: Boolean = false
     private set
-
-  init {
-    responseListener = listeningActivity as ImageRequesterResponse
-    context = listeningActivity.applicationContext
-    client = OkHttpClient()
-  }
 
   fun getPhoto() {
 
@@ -61,7 +52,7 @@ class ImageRequester(listeningActivity: Activity) {
         .appendPath(URL_PATH_1)
         .appendPath(URL_PATH_2)
         .appendQueryParameter(URL_QUERY_PARAM_DATE_KEY, date)
-        .appendQueryParameter(URL_QUERY_PARAM_API_KEY, context.getString(R.string.api_key))
+        .appendQueryParameter(URL_QUERY_PARAM_API_KEY, "XQQCbym9B5pAxzeCIBQ1CZQvHySpUvcY8VQFR1mg") //todo Replace hardcode for context.getString(R.string.api_key
         .build().toString()
 
     val request = Request.Builder().url(urlRequest).build()

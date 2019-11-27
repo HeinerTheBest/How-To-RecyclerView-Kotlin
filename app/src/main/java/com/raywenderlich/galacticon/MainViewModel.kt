@@ -7,9 +7,15 @@ import android.util.Log
 import java.io.IOException
 import java.util.ArrayList
 
-class MainViewModel {
+class MainViewModel: ImageRequester.ImageRequesterResponse {
+
+    override fun receivedNewPhoto(newPhoto: Photo) {
+       addNewPhoto(newPhoto)
+    }
 
     private val _photoList = MutableLiveData<ArrayList<Photo>>()
+    private val _photo     = MutableLiveData<Photo>()
+
     private lateinit var imageRequester: ImageRequester
 
 
@@ -18,9 +24,9 @@ class MainViewModel {
 
 
 
-    fun init(activity: Activity){
+    fun init(){
         _photoList.value = ArrayList()
-        imageRequester = ImageRequester(activity)
+        imageRequester = ImageRequester(this)
     }
 
     fun requestPhoto() {
@@ -34,7 +40,6 @@ class MainViewModel {
 
     fun addNewPhoto(newPhoto: Photo){
         _photoList.value?.add(newPhoto)
-        _photoList.value = _photoList.value
         Log.d("heiner","adding photo ${_photoList.value?.size}")
     }
 

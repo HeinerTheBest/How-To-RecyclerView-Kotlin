@@ -31,7 +31,7 @@ import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse {
+class MainActivity : AppCompatActivity() {
 
   private lateinit var linearLayoutManager: LinearLayoutManager
   private lateinit var adapter: RecyclerAdapter
@@ -50,11 +50,13 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse 
     rvPhotos.layoutManager = linearLayoutManager
 
     mainViewModel = MainViewModel()
-    mainViewModel.init(this)
+    mainViewModel.init()
+    mainViewModel.requestPhoto()
+
     mainViewModel.photosList.observe(this, Observer<ArrayList<Photo>>{ photos ->
       Log.d("heiner","Size is ${photos?.size}")
       if(photos?.size == 0){
-        mainViewModel.requestPhoto()
+        //mainViewModel.requestPhoto()
         Log.d("heiner","photos 0")
       }
       else{
@@ -66,14 +68,6 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse 
       rvPhotos.adapter = adapter
      Log.d("heiner","this was called")
     })
-
   }
 
-
-
-  override fun receivedNewPhoto(newPhoto: Photo) {
-    runOnUiThread {
-      mainViewModel.addNewPhoto(newPhoto)
-    }
-  }
 }
