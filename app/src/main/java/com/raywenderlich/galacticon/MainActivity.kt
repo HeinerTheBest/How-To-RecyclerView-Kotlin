@@ -33,7 +33,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse {
 
-  private var photosList: ArrayList<Photo> = ArrayList()
   private lateinit var linearLayoutManager: LinearLayoutManager
   private lateinit var adapter: RecyclerAdapter
   private lateinit var mainViewModel: MainViewModel
@@ -53,6 +52,7 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse 
     mainViewModel = MainViewModel()
     mainViewModel.init(this)
     mainViewModel.photosList.observe(this, Observer<ArrayList<Photo>>{ photos ->
+      Log.d("heiner","Size is ${photos?.size}")
       if(photos?.size == 0){
         mainViewModel.requestPhoto()
         Log.d("heiner","photos 0")
@@ -62,21 +62,18 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse 
 
       }
 
-
-
       adapter = RecyclerAdapter(photos!!)
       rvPhotos.adapter = adapter
+     Log.d("heiner","this was called")
     })
 
   }
 
 
 
-
   override fun receivedNewPhoto(newPhoto: Photo) {
     runOnUiThread {
-      photosList.add(newPhoto)
-      adapter.notifyItemInserted(photosList.size)
+      mainViewModel.addNewPhoto(newPhoto)
     }
   }
 }
