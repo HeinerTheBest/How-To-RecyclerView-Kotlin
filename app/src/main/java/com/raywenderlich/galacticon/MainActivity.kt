@@ -26,6 +26,7 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Menu
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -35,9 +36,6 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse 
   private var photosList: ArrayList<Photo> = ArrayList()
   private lateinit var linearLayoutManager: LinearLayoutManager
   private lateinit var adapter: RecyclerAdapter
-
-
-  //start
   private lateinit var mainViewModel: MainViewModel
 
 
@@ -52,13 +50,19 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse 
     linearLayoutManager = LinearLayoutManager(this)
     rvPhotos.layoutManager = linearLayoutManager
 
-    //start
     mainViewModel = MainViewModel()
     mainViewModel.init(this)
     mainViewModel.photosList.observe(this, Observer<ArrayList<Photo>>{ photos ->
       if(photos?.size == 0){
         mainViewModel.requestPhoto()
+        Log.d("heiner","photos 0")
       }
+      else{
+        Log.d("heiner","photos no 0")
+
+      }
+
+
 
       adapter = RecyclerAdapter(photos!!)
       rvPhotos.adapter = adapter
