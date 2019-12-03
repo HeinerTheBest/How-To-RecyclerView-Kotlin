@@ -20,22 +20,28 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.galacticon
+package com.raywenderlich.galacticon.views.photo.main
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.Menu
+import com.raywenderlich.galacticon.model.Photo
+import com.raywenderlich.galacticon.R
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.IOException
 import java.util.*
 
-class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse {
+class MainActivity : AppCompatActivity() {
 
-  private var photosList: ArrayList<Photo> = ArrayList()
-  private lateinit var imageRequester: ImageRequester
   private lateinit var linearLayoutManager: LinearLayoutManager
   private lateinit var adapter: RecyclerAdapter
+
+
+  //todo 2 Initialize this throught Dagger
+  private lateinit var mainViewModel: MainViewModel
+
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.menu_main, menu)
@@ -45,35 +51,28 @@ class MainActivity : AppCompatActivity(), ImageRequester.ImageRequesterResponse 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
-
     linearLayoutManager = LinearLayoutManager(this)
-    adapter = RecyclerAdapter(photosList)
-    rvPhotos.adapter = adapter
     rvPhotos.layoutManager = linearLayoutManager
 
-    imageRequester = ImageRequester(this)
+    mainViewModel = MainViewModel()
+    mainViewModel.init()
+    mainViewModel.requestPhoto()
+
+    mainViewModel.photosList.observe(this, Observer<ArrayList<Photo>>{ photos ->
+      Log.d("heiner","Size is ${photos?.size}")
+      if(photos?.size == 0){
+        //mainViewModel.requestPhoto()
+        Log.d("heiner","photos 0")
+      }
+      else{
+        Log.d("heiner","photos no 0")
+
+      }
+
+      adapter = RecyclerAdapter(photos!!)
+      rvPhotos.adapter = adapter
+     Log.d("heiner","this was called")
+    })
   }
 
-  override fun onStart() {
-    super.onStart()
-    if (photosList.size == 0) {
-      requestPhoto()
-    }
-  }
-
-  private fun requestPhoto() {
-    try {
-      imageRequester.getPhoto()
-    } catch (e: IOException) {
-      e.printStackTrace()
-    }
-
-  }
-
-  override fun receivedNewPhoto(newPhoto: Photo) {
-    runOnUiThread {
-      photosList.add(newPhoto)
-      adapter.notifyItemInserted(photosList.size)
-    }
-  }
 }

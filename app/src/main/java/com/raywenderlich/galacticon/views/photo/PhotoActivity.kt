@@ -20,10 +20,12 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.galacticon
+package com.raywenderlich.galacticon.views.photo
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.raywenderlich.galacticon.model.Photo
+import com.raywenderlich.galacticon.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_photo.*
 
