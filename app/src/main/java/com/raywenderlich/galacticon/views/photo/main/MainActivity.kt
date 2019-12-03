@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
   private lateinit var linearLayoutManager: LinearLayoutManager
   private lateinit var adapter: RecyclerAdapter
 
+  //starting
 
   //todo 2 Initialize this throught Dagger
   private lateinit var mainViewModel: MainViewModel
