@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.galacticon
+package com.raywenderlich.galacticon.views.photo.main
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
@@ -28,6 +28,8 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
+import com.raywenderlich.galacticon.model.Photo
+import com.raywenderlich.galacticon.R
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -35,6 +37,9 @@ class MainActivity : AppCompatActivity() {
 
   private lateinit var linearLayoutManager: LinearLayoutManager
   private lateinit var adapter: RecyclerAdapter
+
+
+  //todo 2 Initialize this throught Dagger
   private lateinit var mainViewModel: MainViewModel
 
 

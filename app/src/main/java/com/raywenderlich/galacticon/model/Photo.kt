@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.galacticon
+package com.raywenderlich.galacticon.model
 
 import org.json.JSONException
 import org.json.JSONObject

@@ -20,9 +20,10 @@
  * THE SOFTWARE.
  */
 
-package com.raywenderlich.galacticon
+package com.raywenderlich.galacticon.repository
 
 import android.net.Uri.Builder
+import com.raywenderlich.galacticon.model.Photo
 import okhttp3.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -30,6 +31,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
+//Todo 1 Use this througt Dagger
 class ImageRequester(imageRequesterResponse: ImageRequesterResponse) {
 
   interface ImageRequesterResponse {

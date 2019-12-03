@@ -1,23 +1,26 @@
-package com.raywenderlich.galacticon
+package com.raywenderlich.galacticon.views.photo.main
 
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
+import com.raywenderlich.galacticon.R
+import com.raywenderlich.galacticon.inflate
+import com.raywenderlich.galacticon.model.Photo
+import com.raywenderlich.galacticon.views.photo.PhotoActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.recyclerview_item_row.view.*
 
 class RecyclerAdapter(private val photos: ArrayList<Photo>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflateView = parent.inflate(R.layout.recyclerview_item_row)
         return ViewHolder(inflateView)
     }
 
     override fun getItemCount() = photos.size
 
-    override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemPhoto = photos[position]
         holder.bindPhoto(itemPhoto)
     }

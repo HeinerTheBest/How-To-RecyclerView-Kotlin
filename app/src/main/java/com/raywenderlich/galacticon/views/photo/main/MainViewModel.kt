@@ -1,9 +1,10 @@
-package com.raywenderlich.galacticon
+package com.raywenderlich.galacticon.views.photo.main
 
-import android.app.Activity
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.util.Log
+import com.raywenderlich.galacticon.repository.ImageRequester
+import com.raywenderlich.galacticon.model.Photo
 import java.io.IOException
 import java.util.ArrayList
 
@@ -14,15 +15,10 @@ class MainViewModel: ImageRequester.ImageRequesterResponse {
     }
 
     private val _photoList = MutableLiveData<ArrayList<Photo>>()
-    private val _photo     = MutableLiveData<Photo>()
-
     private lateinit var imageRequester: ImageRequester
-
 
     val photosList: LiveData<ArrayList<Photo>>
         get() = _photoList
-
-
 
     fun init(){
         _photoList.value = ArrayList()
@@ -35,13 +31,10 @@ class MainViewModel: ImageRequester.ImageRequesterResponse {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-
     }
 
     fun addNewPhoto(newPhoto: Photo){
-        _photoList.value?.add(newPhoto)
+        _photoList.postValue(arrayListOf(newPhoto))
         Log.d("heiner","adding photo ${_photoList.value?.size}")
     }
-
-
 }
