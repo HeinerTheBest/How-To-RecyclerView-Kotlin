@@ -30,9 +30,10 @@ import org.json.JSONObject
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-//Todo 1 Use this througt Dagger
-class ImageRequester(imageRequesterResponse: ImageRequesterResponse) {
+class ImageRequester @Inject constructor(imageRequesterResponse: ImageRequesterResponse) {
+
 
   interface ImageRequesterResponse {
     fun receivedNewPhoto(newPhoto: Photo)

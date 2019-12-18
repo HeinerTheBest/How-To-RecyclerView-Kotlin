@@ -28,6 +28,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
+import com.raywenderlich.galacticon.MyApplication
 import com.raywenderlich.galacticon.model.Photo
 import com.raywenderlich.galacticon.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    (application as MyApplication).appComponent.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     linearLayoutManager = LinearLayoutManager(this)
