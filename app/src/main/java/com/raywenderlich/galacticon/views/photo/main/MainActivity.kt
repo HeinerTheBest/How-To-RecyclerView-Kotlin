@@ -33,16 +33,15 @@ import com.raywenderlich.galacticon.model.Photo
 import com.raywenderlich.galacticon.R
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
   private lateinit var linearLayoutManager: LinearLayoutManager
   private lateinit var adapter: RecyclerAdapter
 
-  //starting
-
-  //todo 2 Initialize this throught Dagger
-  private lateinit var mainViewModel: MainViewModel
+  @Inject
+  lateinit var mainViewModel: MainViewModel
 
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -57,7 +56,6 @@ class MainActivity : AppCompatActivity() {
     linearLayoutManager = LinearLayoutManager(this)
     rvPhotos.layoutManager = linearLayoutManager
 
-    mainViewModel = MainViewModel()
     mainViewModel.init()
     mainViewModel.requestPhoto()
 

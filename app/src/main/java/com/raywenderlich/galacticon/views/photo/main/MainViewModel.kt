@@ -10,7 +10,8 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 
-class MainViewModel : ImageRequester.ImageRequesterResponse {
+class MainViewModel @Inject constructor() : ImageRequester.ImageRequesterResponse {
+
 
     override fun receivedNewPhoto(newPhoto: Photo) {
        addNewPhoto(newPhoto)
